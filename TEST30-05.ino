@@ -60,21 +60,21 @@ void loop() {
   check_input();
   switch(Status){
     case Forward:
-      print_status(Forward, "THUAN 50% " + is_high_speed ? String(HIGH_SPEED) : String(LOW_SPEED));
+      print_status(Forward, "THUAN 50% " + string_speed());
       for(int i = 0; i <= 100; ++i){
         myStepper.step(0.005 * STEP_PER_REVOLUTION);
         check_input();
-        print_status(Forward, "THUAN 50% " + is_high_speed ? String(HIGH_SPEED) : String(LOW_SPEED));
+        print_status(Forward, "THUAN 50% " + string_speed());
         if(Status != Forward) break;
       }
       delay_while_check_input(1000);
       break;
     case Reverse:
-      print_status(Reverse, "NGHICH 50% " + is_high_speed ? String(HIGH_SPEED) : String(LOW_SPEED));
+      print_status(Reverse, "NGHICH 50% " + string_speed());
       for(int i = 0; i <= 100; ++i){
         myStepper.step(-0.005 * STEP_PER_REVOLUTION);
         check_input();
-        print_status(Reverse, "NGHICH 50% " + is_high_speed ? String(HIGH_SPEED) : String(LOW_SPEED));
+        print_status(Reverse, "NGHICH 50% " + string_speed());
         if(Status != Reverse) break;
       }
       delay_while_check_input(1000);
@@ -84,6 +84,10 @@ void loop() {
   } 
 }
 //===============================================================================================================
+
+String string_speed(){
+  return is_high_speed ? String(HIGH_SPEED) : String(LOW_SPEED);
+}
 
 void check_input(){
   if(digitalRead(FORWARD_BTN) == HIGH){
