@@ -169,10 +169,11 @@ void delay_while_check_input(int m){
   hàm millis() trả về 1 số kiểu unsigned long là thời gian vi xử lý đã chạy tính bằng mili giây
   lấy thời gian hiện tại trừ đi thời gian bắt đầu ta đc thời gian đã qua tính từ lúc bắt đầu
   */
+  Status start_state = state;
   t = millis();
   while((unsigned long)(millis() - t) < m){
     check_input();
-    if(state != current) return;
+    if(state != start_state) return;
     delay(100);
   }
 }
